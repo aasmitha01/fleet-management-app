@@ -100,21 +100,23 @@
             displayData(data);
         }
         function displayData(arr){
-            document.getElementById("main").innerHTML="";
-            arr.forEach((item,index)=>{
-                let card = `
-<div class="card">
-    <img src="${item.img}" style="width:120px; height:auto; object-fit:contain;">
-    <h4>${item.reg}</h4>
-    <p>Category: ${item.category}</p>
-    <p>Driver: ${item.driver}</p>
-    <p>Status: ${item.status}</p>
-    <button onclick="updateDriver(${index})">Change Availability</button>
-    <button onclick="deleteVehicle(${index})">Delete Vehicle</button>
-</div>`;
+    document.getElementById("main").innerHTML="";
+    arr.forEach((item,index)=>{
+        let card = `
+                 <div class="card">
+                 <img src="${item.img}" style="width:500px; height:500x; object-fit:contain;">
+                <h4>${item.reg}</h4>
+                <p>Category: ${item.category}</p>
+                <p>Driver: ${item.driver}</p>
+                <p>Status: ${item.status}</p>
+                <button onclick="updateDriver(${index})">Change Availability</button>
+                <button onclick="deleteVehicle(${index})">Delete Vehicle</button>
+            </div>`;
 
-            });
-        }
+        document.getElementById("main").innerHTML += card;
+    });
+}
+
         function updateDriver(index){
             let newDriver=prompt("Enter new driver name:");
             if(!newDriver || newDriver.trim()===""){
