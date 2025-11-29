@@ -106,9 +106,40 @@
                     <p>status: ${item.status}</p>
                     <button onclick="updateDriver(${index})">Change Availability</button>
                     <button onclick="deleteVehicle(${index})">Delete Vechile</button>`;
-                    
-            })
+                    document.getElementById("main").append(card);
+            });
         }
+        function updateDriver(index){
+            let newDriver=prompt("Enter new driver name:");
+            if(!newDriver || newDriver.trim()===""){
+                alert("Driver name connot be empty");
+                return;
+            }
+            data[index].driver=newDriver;
+            displayData(data);
+        }
+        function deleteVehicle(index) {
+            let confirmDelete=confirm("Are you sure you want to delete?");
+            if(!confirmDelete)return;
+            data.splice(index, 1);
+            displayData(data);
+            
+        }
+        document.getElementById("categoryFilter").addEventListener("change",applyFliters);
+        document.getElementById("availablityFilter").addEventListener("change",applyFliters);
+        function applyFliters(){
+            let cat=document.getElementById("categoryFilter").value;
+            let status=document.getElementById("availabilityFilter").value;
+            let filtered= data.filter(v=>(cat==="All"||v.category===cat)&&(status==="All"||v.status===status));
+            displayData(filtered);
+        }
+        function clearFliter(){
+            document.getElementById("categoryFilter").value="All";
+            document.getElementById("availabiltyFilter").value="All";
+            displayData(data);
+        }
+
+
     </script>
     
 </body>
