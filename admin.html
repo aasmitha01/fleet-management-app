@@ -34,16 +34,17 @@
             border: 1px solid gray;
             padding: 10px;
         }
+        
     </style>
 </head>
 <body>
     <div id="navbar">
-        <select id="categoryFliter">
+        <select id="categoryFilter">
             <option value="All">All</option>
             <option value="Car">Car</option>
             <option value="Bus">Bus</option>
         </select>
-        <select id="availabilityFliter">
+        <select id="availabilityFilter">
             <option value="All">All</option>
             <option value="Available">Available</option>
             <option value="Unavailable">Unavailable</option>
@@ -74,6 +75,7 @@
         </div>
         <div id="main"></div>
     </div>
+
     <script>
         let data=[];
         function addFleet(){
@@ -89,6 +91,12 @@
                 reg,category,driver,status,img:"https://coding-platform.s3.amazonaws.com/dev/lms/tickets/5e80fcb6-3f8e-480c-945b-30a5359eb40e/JNmYjkVr3WOjsrbu.png"
 
             };
+            const imageTag=document.createElement("img");
+            imageTag.src=obj.img;
+            imageTag.style.width= "150px";
+            imageTag.style.height= "auto";
+            imageTag.style.objectFit= "contain";
+            parent.appendchlid(imageTag);
             data.push(obj);
             document.getElementById("reg").value="";
             document.getElementById("category").value="";
@@ -99,14 +107,16 @@
         function displayData(arr){
             document.getElementById("main").innerHTML="";
             arr.forEach((item,index)=>{
-                let card=`<imag scr="${item.img}">
+                let card=`<div class="card">
+                      <img src="${item.img}" style="width:120px; height:auto; object-fit:contain;">
+
                     <h4>${item.reg}</h4>
                     <p>Category: ${item.category}</p>
                     <p>Driver: ${item.driver}</p>
                     <p>status: ${item.status}</p>
                     <button onclick="updateDriver(${index})">Change Availability</button>
                     <button onclick="deleteVehicle(${index})">Delete Vechile</button>`;
-                    document.getElementById("main").append(card);
+                    document.getElementById("main").innerHTML+=card;
             });
         }
         function updateDriver(index){
@@ -126,7 +136,7 @@
             
         }
         document.getElementById("categoryFilter").addEventListener("change",applyFliters);
-        document.getElementById("availablityFilter").addEventListener("change",applyFliters);
+        document.getElementById("availabilityFilter").addEventListener("change",applyFliters);
         function applyFliters(){
             let cat=document.getElementById("categoryFilter").value;
             let status=document.getElementById("availabilityFilter").value;
@@ -135,7 +145,7 @@
         }
         function clearFliter(){
             document.getElementById("categoryFilter").value="All";
-            document.getElementById("availabiltyFilter").value="All";
+            document.getElementById("availabilityFilter").value="All";
             displayData(data);
         }
 
