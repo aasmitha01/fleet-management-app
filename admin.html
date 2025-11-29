@@ -91,12 +91,7 @@
                 reg,category,driver,status,img:"https://coding-platform.s3.amazonaws.com/dev/lms/tickets/5e80fcb6-3f8e-480c-945b-30a5359eb40e/JNmYjkVr3WOjsrbu.png"
 
             };
-            const imageTag=document.createElement("img");
-            imageTag.src=obj.img;
-            imageTag.style.width= "150px";
-            imageTag.style.height= "auto";
-            imageTag.style.objectFit= "contain";
-            parent.appendchlid(imageTag);
+        
             data.push(obj);
             document.getElementById("reg").value="";
             document.getElementById("category").value="";
@@ -107,16 +102,17 @@
         function displayData(arr){
             document.getElementById("main").innerHTML="";
             arr.forEach((item,index)=>{
-                let card=`<div class="card">
-                      <img src="${item.img}" style="width:120px; height:auto; object-fit:contain;">
+                let card = `
+<div class="card">
+    <img src="${item.img}" style="width:120px; height:auto; object-fit:contain;">
+    <h4>${item.reg}</h4>
+    <p>Category: ${item.category}</p>
+    <p>Driver: ${item.driver}</p>
+    <p>Status: ${item.status}</p>
+    <button onclick="updateDriver(${index})">Change Availability</button>
+    <button onclick="deleteVehicle(${index})">Delete Vehicle</button>
+</div>`;
 
-                    <h4>${item.reg}</h4>
-                    <p>Category: ${item.category}</p>
-                    <p>Driver: ${item.driver}</p>
-                    <p>status: ${item.status}</p>
-                    <button onclick="updateDriver(${index})">Change Availability</button>
-                    <button onclick="deleteVehicle(${index})">Delete Vechile</button>`;
-                    document.getElementById("main").innerHTML+=card;
             });
         }
         function updateDriver(index){
